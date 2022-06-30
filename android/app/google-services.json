@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "27227410484",
+    "firebase_url": "https://restaurant-c3dcc-default-rtdb.firebaseio.com",
+    "project_id": "restaurant-c3dcc",
+    "storage_bucket": "restaurant-c3dcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27227410484:android:880800f3fe8b5902e8ba61",
+        "android_client_info": {
+          "package_name": "com.restaurantcliente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27227410484-phfi2k8nkqlgopp1g5qa66q9li1smd00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ5Xr-8bjk4TXodpwb7MgoMJdv_8g4d14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27227410484-phfi2k8nkqlgopp1g5qa66q9li1smd00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

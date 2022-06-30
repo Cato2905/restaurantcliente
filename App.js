@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './components/Login';
-import Registrer from './components/Registrer';
+import Register from './components/Register';
 import {
   SafeAreaView,
 
@@ -39,9 +39,9 @@ const App = () => {
               </Tab.Navigator>
             )}
           </Stack.Screen>
-          <Stack.Screen name="Registrer">
+          <Stack.Screen name="Register">
             {(props) => (
-              <Registrer
+              <Register
                 {...props}
               />
             )}

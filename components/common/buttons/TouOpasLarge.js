@@ -1,12 +1,18 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Text } from 'react-native'
 import styles from '../../../styles/styles'
 
-const TouOpasLarge = () => {
-  return 
-  (
-    <TouchableOpacity>
-
+const TouOpasLarge = ({ nameBtn, nameOnPress }) => {
+  return(
+    <TouchableOpacity
+      style={styles.btnLarge}
+      onPress={() => nameOnPress()}
+    >
+      <Text
+        style={styles.textBtn}
+      >
+        {nameBtn}
+      </Text>
     </TouchableOpacity>
   )
 }
