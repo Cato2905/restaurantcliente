@@ -9,9 +9,7 @@ import TouOpasLarge from './common/buttons/TouOpasLarge';
 const Login = () => {
 
     const navigation = React.useContext(NavigationContext);
-    const [name, setName] = useState("")
-    const [apellido, setApellido] = useState("")
-    const [direccion, setDireccion] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const onPressbtn = () => {
@@ -19,13 +17,24 @@ const Login = () => {
     }
 
     const onPressbtnLogin = () => {
-        firebase.firestore().collection("Nombres").doc("cualq").set({
-            name: name,
-            apellido: apellido,
-            direccion: direccion,
-            password: password
+        // firebase.firestore().collection("Nombres").doc("cualq").set({
+        //     name: name,
+        //     apellido: apellido,
+        //     direccion: direccion,
+        //     password: password
+        // })
+
+        firebase.auth().signInWithEmailAndPassword(email, password).then((userCredential) => {
+            const uid = userCredential.user.uid
+            firebase.firestore().collection("Trabajador").doc(uid).get().then((document) => {
+                if (document.exists) {
+                    const user = document.data()
+                    navigation.navigate("Home",{user})
+                }
+            })
         })
-        console.log(name, apellido, direccion, password)
+
+        console.log(email, password)
     }
 
     return (
@@ -36,9 +45,7 @@ const Login = () => {
             <Text style={[styles.textTitle]}>Login</Text>
 
 
-            <InputText value={name} setValue={setName} namePlaceholder={"Nombre"} pass={false} />
-            <InputText value={apellido} setValue={setApellido} namePlaceholder={"Apellido"} pass={false} />
-            <InputText value={direccion} setValue={setDireccion} namePlaceholder={"Direccion"} pass={false} />
+            <InputText value={email} setValue={setEmail} namePlaceholder={"email"} pass={false} />
             <InputText value={password} setValue={setPassword} namePlaceholder={"Password"} pass={true} />
 
 

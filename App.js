@@ -1,14 +1,12 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './components/Login';
 import Register from './components/Register';
-import {
-  SafeAreaView,
-
-} from 'react-native';
+import { SafeAreaView } from 'react-native';
+import Home from './components/Home';
+import { firebase } from '@react-native-firebase/firestore';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,39 +14,80 @@ const Stack = createNativeStackNavigator();
 
 
 const App = () => {
+
+  const [user, setUser] = useState(null)
+  
+
+
+  const logOut = () => {
+
+    firebase.auth().signOut().then(() => {
+      setUser(null)
+    })
+  }
+
+  useEffect (() =>{
+    firebase.auth().onAuthStateChanged((usuario) => {
+      if (usuario) {
+        firebase.firestore().collection("Trabajador").doc(usuario.uid).get().then((document) => {
+          const userData = document.data()
+          setUser(userData)
+        })
+      }
+    })
+  },[])
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <>
-          <Stack.Screen name="Tab" options={{ headerShown: false }}>
-            {() => (
-              <Tab.Navigator
-                screenOptions={{
-                  tabBarStyle: {
-                    backgroundColor: "#333"
-                  }
-                }}
-              >
-                <Tab.Screen name="Login" options={{headerTitle:"Login" , headerShown: false}}>
-                  {(props) => (
-                    <Login
-                      {...props}
-                    />
-                  )}
-                </Tab.Screen>
-              </Tab.Navigator>
-            )}
-          </Stack.Screen>
-          <Stack.Screen name="Register">
-            {(props) => (
-              <Register
-                {...props}
-              />
-            )}
-          </Stack.Screen>
-        </>
+        {user ? (
+          <>
+            <Stack.Screen name="Tab" options={{ headerShown: false }}>
+              {() => (
+                <Tab.Navigator
+                  screenOptions={{
+                    tabBarStyle: {
+                      backgroundColor: "#333"
+                    }
+                  }}
+                >
+                  <Tab.Screen name="Home" options={{ headerTitle: "Home", headerShown: false }}>
+                    {(props) => (
+                      <Home
+                        {...props}
+                        user={user}
+                        logOut={logOut}
+                      />
+                    )}
+                  </Tab.Screen>
+                </Tab.Navigator>
+              )}
+            </Stack.Screen>
+          </>
+        )
+          : (
+            <>
+              <Stack.Screen name="Login">
+                {(props) => (
+                  <Login
+                    {...props}
+                  />
+                )}
+              </Stack.Screen>
+              <Stack.Screen name="Register">
+                {(props) => (
+                  <Register
+                    {...props}
+                  />
+                )}
+              </Stack.Screen>
+
+            </>
+          )}
+
       </Stack.Navigator>
-    </NavigationContainer>
+
+    </NavigationContainer >
   );
 };
 

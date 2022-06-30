@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import InputText from './common/inputs/InputText'
+import auth from '@react-native-firebase/auth';
+import { firebase } from '@react-native-firebase/firestore';
 
 
 const Register = () => {
@@ -13,11 +15,38 @@ const Register = () => {
     const [direccion, setDireccion] = useState("")
     const [password, setPassword] = useState("")
     const [passwordConfirm, setPasswordConfirm] = useState("")
+    const userRef = firebase.firestore().collection("Trabajador")
 
 
     const RegisterBtn = () => {
-        console.log(name,apellido,email,direccion,password,passwordConfirm)
+
+        if (password.trim() !== passwordConfirm.trim()) {
+
+            return;
+        }
+
+        console.log(name, apellido, email, direccion, password, passwordConfirm)
+
+        auth().createUserWithEmailAndPassword(email, password).then(
+            (userCredential) => {
+                const uid = userCredential.user.uid
+                const data = {
+                    id:uid,
+                    email,
+                    nombre:name,
+                    apellido,
+                    direccion
+                }
+                userRef.doc(uid).set(data)
+            }
+        )
+
+
     }
+
+
+
+
 
 
     return (
@@ -37,8 +66,8 @@ const Register = () => {
             <InputText value={password} setValue={setPassword} namePlaceholder={"contraseña"} pass={true} />
             <InputText value={passwordConfirm} setValue={setPasswordConfirm} namePlaceholder={"confirmar contraseña"} pass={true} />
 
-            <View style={{width:"100%", marginBottom:"30%"}}>
-            <TouOpasLarge nameBtn={"Registrar"} nameOnPress={RegisterBtn} />
+            <View style={{ width: "100%", marginBottom: "30%" }}>
+                <TouOpasLarge nameBtn={"Registrar"} nameOnPress={RegisterBtn} />
             </View>
         </ScrollView>
 
