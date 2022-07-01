@@ -21,7 +21,9 @@ const Register = () => {
     const RegisterBtn = () => {
 
         if (password.trim() !== passwordConfirm.trim()) {
-
+            Alert.alert(
+                "Las contraseñas no coinciden"
+            )
             return;
         }
 
