@@ -1,30 +1,71 @@
-import React from 'react'
-import { ScrollView, Text, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, Text, Image, View } from 'react-native'
 import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import IconAwesome from 'react-native-vector-icons/FontAwesome'
 import IconFontisto from 'react-native-vector-icons/Fontisto'
+import { firebase } from '@react-native-firebase/firestore';
+
 
 
 
 
 const Home = ({ user, logOut }) => {
 
+    const [promo, setPromo] = useState([]);
+
 
     const onPressLogOut = () => {
-        logOut()
+        // logOut()
+        console.log(promo)
     }
+
+    useEffect(() => {
+
+        firebase.firestore().collection("productos").onSnapshot((docSnapshot) => {
+
+            const dataArray = []
+
+            docSnapshot.docs.map((doc) => {
+
+                dataArray.push(doc.data())
+
+                // console.log(doc.data().nombre)
+            })
+
+            setPromo(dataArray)
+
+        });
+    }, [])
+
+
 
 
     return (
         <ScrollView style={[styles.containerMain]}>
             <Text style={[styles.textTitle]}>
-                Perfil
-                {[user.apellido,user.direccion]}
+                Menu
+
             </Text>
-            <IconAwesome name="user-circle-o" size={60} color="#4F8EF7"
-                style={{ alignSelf: "center" }}
-            />
+
+            {promo.map((item) => [
+                <View style={[styles.cardPerfil]}>
+                    <View style={[{ flexDirection: "row", flexWrap: 'wrap' }]}>
+                        <View style={{ width: "50%", }}>
+                            <Image source={{ uri: `${item.imagen}` }}
+                                style={{ width: 150, height: 150 }} />
+
+                            <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>{item.nombre}</Text>
+                        </View>
+                        <View style={{ width: "50%", }}>
+                            <Text style={[styles.textSubTitle, { textAlign: 'center', borderBottomWidth:1, borderColor:"#BBB"}]}>Precio: ${item.precio}</Text>
+                            <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>{item.descripcion}</Text>
+                        </View>
+                    </View>
+                    <TouOpasLarge nameBtn={"Agregar a carrito"} />
+                </View>
+            ])}
+
             {/* <Image
             style={{width:150, height:150, }}
             source={{
