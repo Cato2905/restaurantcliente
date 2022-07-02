@@ -7,6 +7,10 @@ import Register from './components/Register';
 import { SafeAreaView } from 'react-native';
 import Home from './components/Home';
 import { firebase } from '@react-native-firebase/firestore';
+import Perfil from './components/Perfil';
+
+
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,7 +39,7 @@ const App = () => {
         })
       }
     })
-  },[])
+  },[user])
 
   return (
     <NavigationContainer>
@@ -60,6 +64,16 @@ const App = () => {
                       />
                     )}
                   </Tab.Screen>
+                  <Tab.Screen name="Editar Perfil" options={{ headerTitle: "Perdil", headerShown: false }}>
+                    {(props) => (
+                      <Perfil
+                        {...props}
+                        user={user}
+                        logOut={logOut}
+                      />
+                    )}
+                  </Tab.Screen>
+                  
                 </Tab.Navigator>
               )}
             </Stack.Screen>

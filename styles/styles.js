@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const primaryColor = "#148D6F"
+export const textColor = "#34495E"
 
 export default StyleSheet.create({
     containerMain:{
@@ -13,6 +14,17 @@ export default StyleSheet.create({
         textAlign:"center",
         fontSize:24,
         color: primaryColor
+    },
+    textBody:{
+        width:"100%",
+        fontSize:20,
+        color: textColor
+    },
+    textSubTitle:{
+        width:"100%",
+        fontSize:18,
+        color: primaryColor,
+        marginTop:"5%"
     },
     textInput:{
         width:"100%",
@@ -34,5 +46,18 @@ export default StyleSheet.create({
         fontSize:16,
         color:"black",
 
+    },
+    cardPerfil:{
+        width:"100%",
+        padding:"3%",
+        elevation:12,
+        marginBottom:"5%",
+        border:1,
+        backgroundColor:"white",
+        borderRadius:10,
+        borderColor:"#CCC",
+        borderWidth:1,
+        
     }
+
 })
