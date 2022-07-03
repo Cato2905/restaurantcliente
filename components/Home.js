@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, Image, View, TouchableOpacity, Modal } from 'react-native'
+import { ScrollView, Text, Image, View, TouchableOpacity, Modal, addons } from 'react-native'
 import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import IconAwesome from 'react-native-vector-icons/FontAwesome'
@@ -18,15 +18,55 @@ const Home = () => {
     const [modalVisible, setModalVisible] = useState(false)
     const [arrayCarrito, setArrayCarrito] = useState([])
     const [contPrecio, setContPrecio] = useState(0)
+    const [arraySuma, setArraySuma] = useState([])
 
 
     const onPressConfirmar = () => {
 
-        console.log(promo)
+        console.log(arraySuma)
 
     }
-    const onPressAgregarCarrito = (item) => {
 
+    const verSuma = (resultado, id) => {
+        var salir = false
+        const array = []
+
+        console.log(resultado, id)
+
+        const objSuma = {
+            resultado: resultado,
+            id: id
+        }
+        if (arraySuma.length === 0) {
+            setArraySuma([objSuma])
+            return;
+        } else {
+            arraySuma.forEach((element) => {
+                if (element.id === id) {
+                    array.push(...array, objSuma)
+                    setArraySuma(...arraySuma, objSuma)
+
+                } else {
+                    array.push(...array, element)
+                }
+                console.log("array line 52 ", array)
+
+            });
+            console.log("mensaje", array)
+            setArraySuma(array)
+        }
+        // array.push(...arraySuma, objSuma)
+        // arrayCarrito.forEach(element => {
+
+        //     if (item.indexDoc === element.indexDoc) {
+        //         salir = true
+        //     }
+        // });
+        // setArraySuma(array)
+    }
+
+    const onPressAgregarCarrito = (item) => {
+        var salir = false
         if (arrayCarrito.length === 0) {
             const array = []
             const contSelect = {
@@ -36,23 +76,27 @@ const Home = () => {
             array.push(...arrayCarrito, finalObject)
 
             setArrayCarrito(array)
-
+            return;
         }
         arrayCarrito.forEach(element => {
-            if (item.indexDoc !== element.indexDoc) {
-                const array = []
-                const contSelect = {
-                    contSelect: 0
-                }
-                const finalObject = Object.assign(item, contSelect)
-                array.push(...arrayCarrito, finalObject)
 
-                setArrayCarrito(array)
+            if (item.indexDoc === element.indexDoc) {
+                salir = true
             }
         });
+        if (salir === false) {
+            const array = []
+            const contSelect = {
+                contSelect: 0
+            }
+            const finalObject = Object.assign(item, contSelect)
+            array.push(...arrayCarrito, finalObject)
+            setArrayCarrito(array)
+
+        }
+
     }
 
-    
 
 
 
@@ -144,7 +188,13 @@ const Home = () => {
                     <ScrollView style={{ width: "100%", height: "80%", marginTop: "10%" }} showsVerticalScrollIndicator={false}>
                         {
                             arrayCarrito.map((item, index) => (
-                                <CardModal item={item}/>
+                                <View key={index}>
+                                    <CardModal
+                                        item={item}
+                                        setContPrecio={setContPrecio}
+                                        verSuma={verSuma}
+                                    />
+                                </View>
                             ))
 
                         }
