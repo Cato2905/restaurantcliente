@@ -7,14 +7,14 @@ import IconFontisto from 'react-native-vector-icons/Fontisto'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
-const CardModal = ({ item, setContPrecio, verSuma }) => {
+const CardModal = ({ item,  verSuma}) => {
 
-    const [contSuma, setContSuma] = useState(1)
+    const [contSuma, setContSuma] = useState(item.cantidadPromo)
 
     useEffect(() => {
 
-        var suma = item.precio * contSuma
-        verSuma(suma, item.indexDoc)
+        var suma = item.precio * item.cantidadPromo
+        verSuma(suma, item.indexDoc, contSuma)
         
 
     }, [contSuma])
@@ -30,10 +30,10 @@ const CardModal = ({ item, setContPrecio, verSuma }) => {
             </View>
             <View style={{ width: "50%", height: 100 }}>
                 <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>
-                    {item.nombre}
+                    {item.cantidadPromo}
                 </Text>
                 <Text style={[styles.textSubTitle, { textAlign: 'center', borderTopWidth: 1, borderColor: "#BBB" }]}>
-                    Precio: ${setContPrecio(item.precio * contSuma)}{item.precio * contSuma}
+                    Precio: ${item.precio * item.cantidadPromo}
                 </Text>
 
             </View>
@@ -41,7 +41,7 @@ const CardModal = ({ item, setContPrecio, verSuma }) => {
                 <View style={{ width: "100%", height: "50%", flexDirection: 'row' }}>
 
                     <TouchableOpacity
-                        onPress={() => setContSuma(contSuma === 0 ? 0 : contSuma - 1)}
+                        onPress={() => setContSuma(item.cantidadPromo === 0 ? 0 : item.cantidadPromo - 1)}
                         style={{ width: "50%", height: "100%", justifyContent: 'center', alignItems: 'center', elevation: 1, }}
                     >
                         <IconCommunity
@@ -53,7 +53,7 @@ const CardModal = ({ item, setContPrecio, verSuma }) => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={() => setContSuma(contSuma + 1)}
+                        onPress={() => setContSuma(item.cantidadPromo + 1)}
                         style={{ width: "50%", height: "100%", justifyContent: 'center', alignItems: 'center', elevation: 1, }}
                     >
                         <IconCommunity
@@ -68,7 +68,7 @@ const CardModal = ({ item, setContPrecio, verSuma }) => {
 
                 <View style={{ width: "100%", height: "50%", justifyContent: 'center', alignItems: 'center', }}>
                     <Text style={[styles.textTitle]}>
-                        {contSuma}
+                        {item.cantidadPromo}
                     </Text>
                 </View>
 

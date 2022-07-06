@@ -18,66 +18,49 @@ const Home = () => {
     const [modalVisible, setModalVisible] = useState(false)
     const [arrayCarrito, setArrayCarrito] = useState([])
     const [contPrecio, setContPrecio] = useState(0)
-    const [arraySuma, setArraySuma] = useState([])
+    // const [contSuma, setContSuma] = useState(1)
 
 
     const onPressConfirmar = () => {
 
-        console.log(arraySuma)
+        console.log(arrayCarrito)
 
+        // setArrayCarrito([])
+        // setModalVisible(false)
     }
 
-    const verSuma = (resultado, id) => {
-        var salir = false
-        const array = []
 
-        console.log(resultado, id)
 
-        const objSuma = {
-            resultado: resultado,
-            id: id
-        }
-        if (arraySuma.length === 0) {
-            setArraySuma([objSuma])
-            return;
-        } else {
-            arraySuma.forEach((element) => {
-                if (element.id === id) {
-                    array.push(...array, objSuma)
-                    setArraySuma(...arraySuma, objSuma)
+    const verSuma = (resultado, id, contSuma) => {
+        const osArray = arrayCarrito
 
-                } else {
-                    array.push(...array, element)
-                }
-                console.log("array line 52 ", array)
+        const updatedOSArray = osArray.map((p, index) =>
+            p.indexDoc === id
+                ? { ...p, resultado: resultado, cantidadPromo: contSuma }
+                : p
+        )
+        setArrayCarrito(updatedOSArray)
 
-            });
-            console.log("mensaje", array)
-            setArraySuma(array)
-        }
-        // array.push(...arraySuma, objSuma)
-        // arrayCarrito.forEach(element => {
-
-        //     if (item.indexDoc === element.indexDoc) {
-        //         salir = true
-        //     }
-        // });
-        // setArraySuma(array)
     }
 
     const onPressAgregarCarrito = (item) => {
         var salir = false
+        var resultado = item.precio
         if (arrayCarrito.length === 0) {
             const array = []
             const contSelect = {
-                contSelect: 0
+                contSelect: 0,
+                resultado: resultado,
+                cantidadPromo: 1
             }
             const finalObject = Object.assign(item, contSelect)
             array.push(...arrayCarrito, finalObject)
 
             setArrayCarrito(array)
             return;
+
         }
+
         arrayCarrito.forEach(element => {
 
             if (item.indexDoc === element.indexDoc) {
@@ -87,7 +70,9 @@ const Home = () => {
         if (salir === false) {
             const array = []
             const contSelect = {
-                contSelect: 0
+                contSelect: 0,
+                resultado: resultado,
+                cantidadPromo: 1
             }
             const finalObject = Object.assign(item, contSelect)
             array.push(...arrayCarrito, finalObject)
@@ -97,17 +82,15 @@ const Home = () => {
 
     }
 
-
-
-
     useEffect(() => {
         var suma = 0
         arrayCarrito.forEach(element => {
-            suma = suma + element.precio
+            console.log(element.resultado)
+            suma = suma + (element.precio*element.cantidadPromo)
         });
         setContPrecio(suma)
+        console.log(arrayCarrito)
     }, [arrayCarrito])
-
 
     useEffect(() => {
 
@@ -191,8 +174,8 @@ const Home = () => {
                                 <View key={index}>
                                     <CardModal
                                         item={item}
-                                        setContPrecio={setContPrecio}
                                         verSuma={verSuma}
+
                                     />
                                 </View>
                             ))
