@@ -29,12 +29,12 @@ const Login = () => {
             firebase.firestore().collection("Trabajador").doc(uid).get().then((document) => {
                 if (document.exists) {
                     const user = document.data()
-                    navigation.navigate("Home",{user})
+                    navigation.navigate("Home", { user })
                 }
             })
         })
 
-        console.log(email, password)
+        // console.log(email, password)
     }
 
     return (

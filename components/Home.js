@@ -12,7 +12,7 @@ import CardModal from './CardModal'
 
 
 
-const Home = () => {
+const Home = ({ user }) => {
 
     const [promo, setPromo] = useState([]);
     const [modalVisible, setModalVisible] = useState(false)
@@ -22,11 +22,20 @@ const Home = () => {
 
 
     const onPressConfirmar = () => {
+        let today = new Date();
 
-        console.log(arrayCarrito)
 
-        // setArrayCarrito([])
-        // setModalVisible(false)
+        // console.log(arrayCarrito)
+        firebase.firestore().collection("ordenes").doc(user.id).set({
+            nombre: user.nombre,
+            apellido: user.apellido,
+            direccion: user.direccion,
+            pedido: arrayCarrito,
+            horaPedido: today
+        })
+
+        setArrayCarrito([])
+        setModalVisible(false)
     }
 
 
@@ -85,11 +94,11 @@ const Home = () => {
     useEffect(() => {
         var suma = 0
         arrayCarrito.forEach(element => {
-            console.log(element.resultado)
-            suma = suma + (element.precio*element.cantidadPromo)
+            // console.log(element.resultado)
+            suma = suma + (element.precio * element.cantidadPromo)
         });
         setContPrecio(suma)
-        console.log(arrayCarrito)
+        // console.log(arrayCarrito)
     }, [arrayCarrito])
 
     useEffect(() => {

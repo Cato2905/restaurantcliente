@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Login from './components/Login';
-import Register from './components/Register';
 import { SafeAreaView } from 'react-native';
-import Home from './components/Home';
 import { firebase } from '@react-native-firebase/firestore';
 import Perfil from './components/Perfil';
-
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
 
 
 
@@ -20,7 +19,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
 
   const [user, setUser] = useState(null)
-  
+
 
 
   const logOut = () => {
@@ -30,7 +29,7 @@ const App = () => {
     })
   }
 
-  useEffect (() =>{
+  useEffect(() => {
     firebase.auth().onAuthStateChanged((usuario) => {
       if (usuario) {
         firebase.firestore().collection("Trabajador").doc(usuario.uid).get().then((document) => {
@@ -39,7 +38,7 @@ const App = () => {
         })
       }
     })
-  },[user])
+  }, [user])
 
   return (
     <NavigationContainer>
@@ -64,7 +63,7 @@ const App = () => {
                       />
                     )}
                   </Tab.Screen>
-                  <Tab.Screen name="Editar Perfil" options={{ headerTitle: "Perdil", headerShown: false }}>
+                  <Tab.Screen name="Editar Perfil" options={{ headerTitle: "Perfil", headerShown: false }}>
                     {(props) => (
                       <Perfil
                         {...props}
@@ -73,7 +72,7 @@ const App = () => {
                       />
                     )}
                   </Tab.Screen>
-                  
+
                 </Tab.Navigator>
               )}
             </Stack.Screen>

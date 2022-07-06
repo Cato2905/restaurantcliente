@@ -6,14 +6,14 @@ import IconFontisto from 'react-native-vector-icons/Fontisto'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import InputText from './common/inputs/InputText'
 import { firebase } from '@react-native-firebase/firestore';
-
-
-
+import { NavigationContext } from "@react-navigation/native";
 
 
 
 const Perfil = ({ user, logOut }) => {
 
+
+    const navigation = React.useContext(NavigationContext);
     const [name, setName] = useState(user.nombre)
     const [apellido, setApellido] = useState(user.apellido)
     const [email, setEmail] = useState(user.email)
@@ -23,6 +23,7 @@ const Perfil = ({ user, logOut }) => {
 
     const onPressLogOut = () => {
         logOut()
+        navigation.goBack()
     }
 
 
@@ -38,7 +39,7 @@ const Perfil = ({ user, logOut }) => {
 
 
 
-        console.log(user)
+        // console.log(user)
     }
 
 
@@ -47,7 +48,7 @@ const Perfil = ({ user, logOut }) => {
         <ScrollView style={[styles.containerMain]}>
 
             <View style={[styles.cardPerfil]}>
-                
+
                 <Text style={[styles.textTitle]}>
                     Perfil
                     {/* {[user.apellido,user.direccion]} */}
