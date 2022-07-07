@@ -22,17 +22,21 @@ const Home = ({ user }) => {
 
 
     const onPressConfirmar = () => {
-        let today = new Date();
-
+        const event = new Date();
+        const date = event.toLocaleTimeString()
+        
+        console.log(date)
 
         // console.log(arrayCarrito)
         firebase.firestore().collection("ordenes").doc(user.id).set({
             nombre: user.nombre,
             apellido: user.apellido,
             direccion: user.direccion,
+            TotalPedido : contPrecio,
             pedido: arrayCarrito,
-            horaPedido: today
+            horaPedido: date
         })
+
 
         setArrayCarrito([])
         setModalVisible(false)

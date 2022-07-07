@@ -16,9 +16,7 @@ const CardModal = ({ item,  verSuma}) => {
         var suma = item.precio * item.cantidadPromo
         verSuma(suma, item.indexDoc, contSuma)
         
-
     }, [contSuma])
-
 
 
     return (

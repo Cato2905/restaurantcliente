@@ -27,6 +27,7 @@ const App = () => {
     firebase.auth().signOut().then(() => {
       setUser(null)
     })
+    
   }
 
   useEffect(() => {
@@ -39,6 +40,12 @@ const App = () => {
       }
     })
   }, [user])
+
+
+  useEffect(() => {
+
+  },[user])
+
 
   return (
     <NavigationContainer>
