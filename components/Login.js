@@ -45,8 +45,8 @@ const Login = () => {
             <Text style={[styles.textTitle]}>Login</Text>
 
 
-            <InputText value={email} setValue={setEmail} namePlaceholder={"email"} pass={false} />
-            <InputText value={password} setValue={setPassword} namePlaceholder={"Password"} pass={true} />
+            <InputText value={email} setValue={setEmail} namePlaceholder={"email"} placeholderTextColor="black" pass={false} />
+            <InputText value={password} setValue={setPassword} placeholderTextColor="black" namePlaceholder={"Password"} pass={true} />
 
 
             {/* <TouchableOpacity

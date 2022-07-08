@@ -37,16 +37,21 @@ const Pedido = (user) => {
 
     useEffect(() => {
         promo.forEach(element => {
-            setUserId(element.id)
+
+            if (element.id === user.user.id) {
+                setUserId(element.id)
+            }
+            
             setTiempo(element.tiempoEntrega)
             setCompletado(element.completado)
         });
-    }, [promo]);
+    }, [user]);
 
 
     const boton = () => {
         console.log(user.user.id)
-        console.log(comple)
+        console.log(userId)
+        console.log(completado)
 
     }
 
@@ -56,7 +61,7 @@ const Pedido = (user) => {
             showsVerticalScrollIndicator={false}
         >
             <Text style={[styles.textTitle, { marginBottom: "5%" }]}>Estado del pedido</Text>
-            {user.user.id === userId ? (
+            {userId == user.user.id ? (
 
                 <>
 

@@ -23,7 +23,7 @@ const Perfil = ({ user, logOut }) => {
 
     const onPressLogOut = () => {
         logOut()
-        navigation.goBack()
+        
         
     }
 
