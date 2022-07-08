@@ -19,6 +19,8 @@ const Home = ({ user }) => {
     const [arrayCarrito, setArrayCarrito] = useState([])
     const [contPrecio, setContPrecio] = useState(0)
     // const [contSuma, setContSuma] = useState(1)
+    const [tiempoEntrega, setTiempoEntrega] = useState(0);
+    const [completado, setCompletado] = useState(false)
 
 
     const onPressConfirmar = () => {
@@ -35,7 +37,9 @@ const Home = ({ user }) => {
             direccion: user.direccion,
             TotalPedido : contPrecio,
             pedido: arrayCarrito,
-            horaPedido: date
+            horaPedido: date,
+            tiempoEntrega: tiempoEntrega,
+            completado: completado
         })
 
 

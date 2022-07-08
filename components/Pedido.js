@@ -9,7 +9,9 @@ const Pedido = (user) => {
 
 
     const [promo, setPromo] = useState([]);
+    const [userId, setUserId] = useState(0);
     const [tiempo, setTiempo] = useState(0);
+    const [completado, setCompletado] = useState(false)
 
 
     useEffect(() => {
@@ -35,14 +37,16 @@ const Pedido = (user) => {
 
     useEffect(() => {
         promo.forEach(element => {
-            setTiempo(element.id)
+            setUserId(element.id)
+            setTiempo(element.tiempoEntrega)
+            setCompletado(element.completado)
         });
     }, [promo]);
 
 
     const boton = () => {
         console.log(user.user.id)
-        console.log(tiempo)
+        console.log(comple)
 
     }
 
@@ -52,46 +56,78 @@ const Pedido = (user) => {
             showsVerticalScrollIndicator={false}
         >
             <Text style={[styles.textTitle, { marginBottom: "5%" }]}>Estado del pedido</Text>
+            {user.user.id === userId ? (
 
-            {user.user.id === tiempo ? (
                 <>
+
                     {promo.map((item, index) => [
 
-                        <View style={[styles.cardPerfil]}>
-                            <Text style={[styles.textBody, { textAlign: 'center' }]}>
-                                {[" ", item.nombre, " ", item.apellido]}
-                            </Text>
-                            <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]} >
-                                Su orden estara preparada en {item.tiempoEntrega} minutos aproximadamente
-                            </Text>
-                            <Text style={[styles.textBody, { textAlign: 'center' }]}>
-                                Su orden contiene
-                            </Text>
+                        <>
+                            {tiempo === 0 ? (
+                                <>
+                                    <Text style={{ textAlign: 'center' }}>Hemos recibido tu orden...</Text>
+                                    <Text style={{ textAlign: 'center' }}>Estamos calculando el tiempo de entrega</Text>
+                                </>
+                            ) : (
 
 
-                            {item.pedido.map((itemPedido) => [
-                                <View style={[styles.cardPerfil, { marginVertical: "4%" }]}>
-                                    <Text style={[styles.textBody, { textAlign: 'center' }]}>
-                                        Nombre promocion: {itemPedido.nombre}
-                                    </Text>
-                                    <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]}>
-                                        Cantiadad: {itemPedido.cantidadPromo}
-                                    </Text>
-                                    <Text style={[styles.textBody, { textAlign: 'center' }]}>
-                                        {itemPedido.descripcion}
-                                    </Text>
-                                </View>
-                            ])}
-                            <Text style={[styles.textBody, { textAlign: 'center' }]}>
-                                Su total a pagar es ${item.TotalPedido}
-                            </Text>
+                                <>
+                                    {completado === false ? (
+                                        <View style={[styles.cardPerfil]}>
+                                            <Text style={[styles.textBody, { textAlign: 'center' }]}>
+                                                {["Hola ", item.nombre, " ", item.apellido]}
+                                            </Text>
+                                            <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]} >
+                                                Su orden estara preparada en {item.tiempoEntrega} minutos aproximadamente
+                                            </Text>
+                                            <Text style={[styles.textBody, { textAlign: 'center',  }]}>
+                                                Sera despachado a la direccion {item.direccion}
+                                            </Text>
+                                            <Text style={[styles.textBody, { textAlign: 'center' , marginVertical: "4%"}]}>
+                                                Su es pedido
+                                            </Text>
 
-                        </View>
+
+
+                                            {item.pedido.map((itemPedido) => [
+                                                <View style={[styles.cardPerfil, { marginVertical: "4%" }]}>
+                                                    <Text style={[styles.textBody, { textAlign: 'center' }]}>
+                                                        Nombre promocion: {itemPedido.nombre}
+                                                    </Text>
+                                                    <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]}>
+                                                        Cantiadad: {itemPedido.cantidadPromo}
+                                                    </Text>
+                                                    <Text style={[styles.textBody, { textAlign: 'center' }]}>
+                                                        {itemPedido.descripcion}
+                                                    </Text>
+                                                </View>
+                                            ])}
+                                            <Text style={[styles.textBody, { textAlign: 'center' }]}>
+                                                Su total a pagar es ${item.TotalPedido}
+                                            </Text>
+                                        </View>
+
+
+
+                                    ) : (
+                                        <>
+                                            <Text style={{ textAlign: 'center' }}>Hemos completado su orden...</Text>
+                                            <Text style={{ textAlign: 'center' }}>El repartidor pronto estara en su puerta</Text>
+                                        </>
+                                    )}
+
+                                </>
+
+                            )}
+
+
+
+                        </>
 
 
                     ])}
                     < View style={{ marginBottom: "25%" }}>
-                        <TouOpasLarge nameBtn={"boton"} nameOnPress={boton} />
+                        <TouOpasLarge nameBtn={"console log boton"} nameOnPress={boton} />
                     </View>
                 </>
 
