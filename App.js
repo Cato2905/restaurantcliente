@@ -8,6 +8,9 @@ import Perfil from './components/Perfil';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
+import Pedido from './components/Pedido';
+import IconAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from'react-native-vector-icons/MaterialCommunityIcons';
 
 
 
@@ -27,7 +30,7 @@ const App = () => {
     firebase.auth().signOut().then(() => {
       setUser(null)
     })
-    
+
   }
 
   useEffect(() => {
@@ -44,7 +47,7 @@ const App = () => {
 
   useEffect(() => {
 
-  },[user])
+  }, [user])
 
 
   return (
@@ -56,12 +59,22 @@ const App = () => {
               {() => (
                 <Tab.Navigator
                   screenOptions={{
+                    tabBarShowLabel: false,
                     tabBarStyle: {
                       backgroundColor: "#333"
                     }
                   }}
                 >
-                  <Tab.Screen name="Home" options={{ headerTitle: "Home", headerShown: false }}>
+                  <Tab.Screen
+                    name="Menu"
+                    options={{
+                      headerShown: false,
+                      tabBarIcon: () => (
+                        <IconAwesome name="home" size={30} color="#148D6F" />
+
+                      )
+                    }}
+                  >
                     {(props) => (
                       <Home
                         {...props}
@@ -70,9 +83,35 @@ const App = () => {
                       />
                     )}
                   </Tab.Screen>
-                  <Tab.Screen name="Editar Perfil" options={{ headerTitle: "Perfil", headerShown: false }}>
+                  <Tab.Screen
+                    name="Editar Perfil"
+                    options={{
+                      headerTitle: "Perfil",
+                      headerShown: false,
+                      tabBarIcon: () => (
+                        <IconAwesome name="user" size={30} color="#148D6F"
+                        />
+                      )
+                    }}>
                     {(props) => (
                       <Perfil
+                        {...props}
+                        user={user}
+                        logOut={logOut}
+                      />
+                    )}
+                  </Tab.Screen>
+                  <Tab.Screen 
+                  name="Pedido" 
+                  options={{ 
+                    headerTitle: "Pedido", 
+                    headerShown: false,
+                    tabBarIcon:()=>(
+                      <MaterialCommunityIcons  name="chef-hat" size={30} color="#148D6F"/>
+                    )
+                    }}>
+                    {(props) => (
+                      <Pedido
                         {...props}
                         user={user}
                         logOut={logOut}

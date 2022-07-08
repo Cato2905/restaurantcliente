@@ -7,7 +7,7 @@ import IconFontisto from 'react-native-vector-icons/Fontisto'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import { firebase } from '@react-native-firebase/firestore'
 import CardModal from './CardModal'
-
+import {uid} from 'uid'
 
 
 
@@ -25,10 +25,11 @@ const Home = ({ user }) => {
         const event = new Date();
         const date = event.toLocaleTimeString()
         
-        console.log(date)
+        // console.log(Date())
 
         // console.log(arrayCarrito)
         firebase.firestore().collection("ordenes").doc(user.id).set({
+            id:user.id,
             nombre: user.nombre,
             apellido: user.apellido,
             direccion: user.direccion,
@@ -40,6 +41,8 @@ const Home = ({ user }) => {
 
         setArrayCarrito([])
         setModalVisible(false)
+
+        // console.log(uid(20))
     }
 
 
