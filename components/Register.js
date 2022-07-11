@@ -61,11 +61,17 @@ const Register = () => {
                 Registrer
             </Text>
 
+            <Text style={[styles.textSubTitle]}>nombre</Text>
             <InputText value={name} setValue={setName} namePlaceholder={"Nombre"} pass={false} />
+            <Text style={[styles.textSubTitle]}>Apellido</Text>
             <InputText value={apellido} setValue={setApellido} namePlaceholder={"apellido"} pass={false} />
+            <Text style={[styles.textSubTitle]}>Email</Text>
             <InputText value={email} setValue={setEmail} namePlaceholder={"email"} pass={false} />
+            <Text style={[styles.textSubTitle]}>Direccion</Text>
             <InputText value={direccion} setValue={setDireccion} namePlaceholder={"direccion"} pass={false} />
+            <Text style={[styles.textSubTitle]}>Contraseña</Text>
             <InputText value={password} setValue={setPassword} namePlaceholder={"contraseña"} pass={true} />
+            <Text style={[styles.textSubTitle]}>Confirmar contraseña</Text>
             <InputText value={passwordConfirm} setValue={setPasswordConfirm} namePlaceholder={"confirmar contraseña"} pass={true} />
 
             <View style={{ width: "100%", marginBottom: "30%" }}>

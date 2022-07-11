@@ -41,7 +41,7 @@ const Pedido = (user) => {
             if (element.id === user.user.id) {
                 setUserId(element.id)
             }
-            
+
             setTiempo(element.tiempoEntrega)
             setCompletado(element.completado)
         });
@@ -70,8 +70,8 @@ const Pedido = (user) => {
                         <>
                             {tiempo === 0 ? (
                                 <>
-                                    <Text style={{ textAlign: 'center' }}>Hemos recibido tu orden...</Text>
-                                    <Text style={{ textAlign: 'center' }}>Estamos calculando el tiempo de entrega</Text>
+                                    <Text style={{ textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E"}}>Hemos recibido tu orden...</Text>
+                                    <Text style={{ textAlign: 'center', fontSize:20 , color:"#34495E"}}>Estamos calculando el tiempo de entrega</Text>
                                 </>
                             ) : (
 
@@ -85,10 +85,10 @@ const Pedido = (user) => {
                                             <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]} >
                                                 Su orden estara preparada en {item.tiempoEntrega} minutos aproximadamente
                                             </Text>
-                                            <Text style={[styles.textBody, { textAlign: 'center',  }]}>
+                                            <Text style={[styles.textBody, { textAlign: 'center', }]}>
                                                 Sera despachado a la direccion {item.direccion}
                                             </Text>
-                                            <Text style={[styles.textBody, { textAlign: 'center' , marginVertical: "4%"}]}>
+                                            <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]}>
                                                 Su es pedido
                                             </Text>
 
@@ -116,8 +116,8 @@ const Pedido = (user) => {
 
                                     ) : (
                                         <>
-                                            <Text style={{ textAlign: 'center' }}>Hemos completado su orden...</Text>
-                                            <Text style={{ textAlign: 'center' }}>El repartidor pronto estara en su puerta</Text>
+                                            <Text style={{ textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E" }}>Hemos completado su orden...</Text>
+                                            <Text style={{ textAlign: 'center', fontSize:20,  color:"#34495E" }}>El repartidor pronto estara en su puerta</Text>
                                         </>
                                     )}
 
@@ -131,14 +131,16 @@ const Pedido = (user) => {
 
 
                     ])}
-                    < View style={{ marginBottom: "25%" }}>
-                        <TouOpasLarge nameBtn={"console log boton"} nameOnPress={boton} />
-                    </View>
+                < View style={{ marginBottom: "25%" }}>
+                    <Text style={{textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E"}}>Aun no tiene pedidos</Text>
+                    {/* <TouOpasLarge nameBtn={"boton"} nameOnPress={boton} /> */}
+                </View>
                 </>
 
             ) : (
                 < View style={{ marginBottom: "25%" }}>
-                    <TouOpasLarge nameBtn={"boton"} nameOnPress={boton} />
+                    <Text style={{textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E"}}>Aun no tiene pedidos</Text>
+                    {/* <TouOpasLarge nameBtn={"boton"} nameOnPress={boton} /> */}
                 </View>
 
             )}

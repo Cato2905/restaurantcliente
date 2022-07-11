@@ -44,8 +44,9 @@ const Login = () => {
         >
             <Text style={[styles.textTitle]}>Login</Text>
 
-
+            <Text style={[styles.textSubTitle]}>Email</Text>
             <InputText value={email} setValue={setEmail} namePlaceholder={"email"} placeholderTextColor="black" pass={false} />
+            <Text style={[styles.textSubTitle]}>Contraseña</Text>
             <InputText value={password} setValue={setPassword} placeholderTextColor="black" namePlaceholder={"Password"} pass={true} />
 
 
