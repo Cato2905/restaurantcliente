@@ -7,7 +7,7 @@ import IconFontisto from 'react-native-vector-icons/Fontisto'
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import { firebase } from '@react-native-firebase/firestore'
 import CardModal from './CardModal'
-import {uid} from 'uid'
+import { uid } from 'uid'
 
 
 
@@ -18,7 +18,7 @@ const Home = ({ user }) => {
     const [modalVisible, setModalVisible] = useState(false)
     const [arrayCarrito, setArrayCarrito] = useState([])
     const [contPrecio, setContPrecio] = useState(0)
-    // const [contSuma, setContSuma] = useState(1)
+    const [existencia, setExistencia] = useState(true)
     const [tiempoEntrega, setTiempoEntrega] = useState(0);
     const [completado, setCompletado] = useState(false)
 
@@ -26,21 +26,39 @@ const Home = ({ user }) => {
     const onPressConfirmar = () => {
         const event = new Date();
         const date = event.toLocaleTimeString()
-        
+
         // console.log(Date())
 
         // console.log(arrayCarrito)
         firebase.firestore().collection("ordenes").doc(user.id).set({
-            id:user.id,
+            id: user.id,
             nombre: user.nombre,
             apellido: user.apellido,
             direccion: user.direccion,
-            TotalPedido : contPrecio,
+            TotalPedido: contPrecio,
             pedido: arrayCarrito,
             horaPedido: date,
             tiempoEntrega: tiempoEntrega,
             completado: completado
         })
+
+        firebase.firestore().collection('ventasDiarias').doc().set({
+            TotalPedido: contPrecio
+        })
+
+        firebase.firestore().collection("historial").doc().set({
+            id: user.id,
+            nombre: user.nombre,
+            apellido: user.apellido,
+            direccion: user.direccion,
+            TotalPedido: contPrecio,
+            pedido: arrayCarrito,
+            horaPedido: date,
+            tiempoEntrega: tiempoEntrega,
+            completado: completado
+        })
+
+
 
 
         setArrayCarrito([])
@@ -133,6 +151,9 @@ const Home = ({ user }) => {
 
 
 
+
+
+
     return (
 
         <View>
@@ -143,32 +164,42 @@ const Home = ({ user }) => {
                 </Text>
 
                 {promo.map((item, index) => [
-                    <View style={[styles.cardPerfil]} key={index}>
-                        <View style={[{ flexDirection: "row", flexWrap: 'wrap' }]}>
-                            <View style={{ width: "50%", }}>
-                                <Image source={{ uri: `${item.imagen}` }}
-                                    style={{ width: 150, height: 150 }} />
 
-                                <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>{item.nombre}</Text>
+                    <>
+                        {item.existencia === true ? (
+
+
+                            <View style={[styles.cardPerfil]} key={index}>
+                                <View style={[{ flexDirection: "row", flexWrap: 'wrap' }]}>
+                                    <View style={{ width: "50%", }}>
+                                        <Image source={{ uri: `${item.imagen}` }}
+                                            style={{ width: 150, height: 150 }} />
+
+                                        <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>{item.nombre}</Text>
+                                    </View>
+                                    <View style={{ width: "50%", }}>
+                                        <Text style={[styles.textSubTitle, { textAlign: 'center', borderBottomWidth: 1, borderColor: "#BBB" }]}>Precio: ${item.precio}</Text>
+                                        <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>{item.descripcion}</Text>
+                                    </View>
+                                </View>
+
+                                <TouchableOpacity
+                                    style={styles.btnLarge}
+                                    onPress={() => onPressAgregarCarrito(item)}
+                                >
+                                    <Text
+                                        style={styles.textBtn}
+                                    >
+                                        Agregar a carrito {item.indexDoc}
+                                    </Text>
+                                </TouchableOpacity>
+
                             </View>
-                            <View style={{ width: "50%", }}>
-                                <Text style={[styles.textSubTitle, { textAlign: 'center', borderBottomWidth: 1, borderColor: "#BBB" }]}>Precio: ${item.precio}</Text>
-                                <Text style={[styles.textSubTitle, { textAlign: 'center', }]}>{item.descripcion}</Text>
-                            </View>
-                        </View>
 
-                        <TouchableOpacity
-                            style={styles.btnLarge}
-                            onPress={() => onPressAgregarCarrito(item)}
-                        >
-                            <Text
-                                style={styles.textBtn}
-                            >
-                                Agregar a carrito {item.indexDoc}
-                            </Text>
-                        </TouchableOpacity>
+                        ):(<></>)}
 
-                    </View>
+
+                    </>
                 ])}
 
 
