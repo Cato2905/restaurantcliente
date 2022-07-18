@@ -11,6 +11,7 @@ const Pedido = (user) => {
     const [promo, setPromo] = useState([]);
     const [userId, setUserId] = useState(0);
     const [tiempo, setTiempo] = useState(0);
+    const [index, setIndex] = useState(0);
     const [completado, setCompletado] = useState(false)
 
 
@@ -23,7 +24,7 @@ const Pedido = (user) => {
             docSnapshot.docs.map((doc, indexDoc) => {
 
                 dataArray.push({ ...doc.data(), indexDoc })
-
+                setIndex(indexDoc+1)
                 // console.log(doc.data().nombre)
             })
 
@@ -60,36 +61,44 @@ const Pedido = (user) => {
             style={[styles.containerMain,]}
             showsVerticalScrollIndicator={false}
         >
-            <Text style={[styles.textTitle, { marginBottom: "5%" }]}>Estado del pedido</Text>
-            {userId == user.user.id ? (
+            <Text style={[styles.textTitle,{fontWeight:'bold'}]}>Estado del pedido</Text>
+            <Text style={[styles.textSubTitle,{marginBottom:"3%", fontWeight:'bold'} ]}>Actualmente tenemos {index} pedidos en cola</Text>
+
+            {promo.map((item, index) => [
+
+
 
                 <>
-
-                    {promo.map((item, index) => [
+                    {item.id == user.user.id && (
 
                         <>
+
+
                             {tiempo === 0 ? (
                                 <>
-                                    <Text style={{ textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E"}}>Hemos recibido tu orden...</Text>
-                                    <Text style={{ textAlign: 'center', fontSize:20 , color:"#34495E"}}>Estamos calculando el tiempo de entrega</Text>
+                                    <Text style={{ textAlign: 'center', fontSize: 20, marginTop: "10%", color: "#34495E" }}>Hemos recibido tu orden...</Text>
+                                    <Text style={{ textAlign: 'center', fontSize: 20, color: "#34495E" }}>Estamos calculando el tiempo de entrega</Text>
                                 </>
                             ) : (
 
 
                                 <>
                                     {completado === false ? (
-                                        <View style={[styles.cardPerfil]}>
+                                        <View style={[styles.cardPerfil, { marginBottom: "10%" }]}>
                                             <Text style={[styles.textBody, { textAlign: 'center' }]}>
                                                 {["Hola ", item.nombre, " ", item.apellido]}
                                             </Text>
                                             <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]} >
-                                                Su orden estara preparada en {item.tiempoEntrega} minutos aproximadamente
+                                                Su pedido es el número {index+1} en la cola
+                                            </Text>
+                                            <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]} >
+                                                La orden estará preparada en {item.tiempoEntrega} minutos aproximadamente
                                             </Text>
                                             <Text style={[styles.textBody, { textAlign: 'center', }]}>
-                                                Sera despachado a la direccion {item.direccion}
+                                                Sera despachado a la dirección {item.direccion}
                                             </Text>
                                             <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]}>
-                                                Su es pedido
+                                                Su pedido
                                             </Text>
 
 
@@ -97,10 +106,10 @@ const Pedido = (user) => {
                                             {item.pedido.map((itemPedido) => [
                                                 <View style={[styles.cardPerfil, { marginVertical: "4%" }]}>
                                                     <Text style={[styles.textBody, { textAlign: 'center' }]}>
-                                                        Nombre promocion: {itemPedido.nombre}
+                                                        Nombre promoción: {itemPedido.nombre}
                                                     </Text>
                                                     <Text style={[styles.textBody, { textAlign: 'center', marginVertical: "4%" }]}>
-                                                        Cantiadad: {itemPedido.cantidadPromo}
+                                                        Cantidad: {itemPedido.cantidadPromo}
                                                     </Text>
                                                     <Text style={[styles.textBody, { textAlign: 'center' }]}>
                                                         {itemPedido.descripcion}
@@ -116,8 +125,8 @@ const Pedido = (user) => {
 
                                     ) : (
                                         <>
-                                            <Text style={{ textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E" }}>Hemos completado su orden...</Text>
-                                            <Text style={{ textAlign: 'center', fontSize:20,  color:"#34495E" }}>El repartidor pronto estara en su puerta</Text>
+                                            <Text style={{ textAlign: 'center', fontSize: 20, marginTop: "10%", color: "#34495E" }}>Hemos completado su orden...</Text>
+                                            <Text style={{ textAlign: 'center', fontSize: 20, color: "#34495E" }}>El repartidor pronto estara en su puerta</Text>
                                         </>
                                     )}
 
@@ -127,25 +136,16 @@ const Pedido = (user) => {
 
 
 
+
+
                         </>
 
+                    )}
 
-                    ])}
-                < View style={{ marginBottom: "25%" }}>
-                    <Text style={{textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E"}}>Aun no tiene pedidos</Text>
-                    {/* <TouOpasLarge nameBtn={"boton"} nameOnPress={boton} /> */}
-                </View>
                 </>
 
-            ) : (
-                < View style={{ marginBottom: "25%" }}>
-                    <Text style={{textAlign: 'center', fontSize:20, marginTop:"10%", color:"#34495E"}}>Aun no tiene pedidos</Text>
-                    {/* <TouOpasLarge nameBtn={"boton"} nameOnPress={boton} /> */}
-                </View>
 
-            )}
-
-
+            ])}
 
 
 

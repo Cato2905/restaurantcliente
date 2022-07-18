@@ -77,7 +77,7 @@ const Perfil = ({ user, logOut }) => {
             </View>
 
 
-            <Text style={[styles.textTitle]}>
+            <Text style={[styles.textTitle,{fontWeight:'bold'}]}>
                 Editar perfil
             </Text>
 
@@ -97,7 +97,7 @@ const Perfil = ({ user, logOut }) => {
             <InputText value={email} setValue={setEmail} namePlaceholder={"email"} editable={false} />
 
             <Text style={[styles.textSubTitle]}>
-                Direccion
+                Dirección
             </Text>
             <InputText value={direccion} setValue={setDireccion} namePlaceholder={"direccion"} pass={false} />
 
@@ -106,7 +106,7 @@ const Perfil = ({ user, logOut }) => {
             </View>
 
             <View style={{ width: "100%", marginBottom: "30%" }}>
-                <TouOpasLarge nameBtn={"Log out"} nameOnPress={onPressLogOut} />
+                <TouOpasLarge nameBtn={"Cerrar sesión"} nameOnPress={onPressLogOut} />
             </View>
         </ScrollView>
 

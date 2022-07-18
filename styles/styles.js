@@ -24,7 +24,8 @@ export default StyleSheet.create({
         width: "100%",
         fontSize: 18,
         color: primaryColor,
-        marginTop: "5%"
+        marginTop: "5%",
+        
     },
     textInput: {
         width: "100%",

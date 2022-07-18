@@ -8,6 +8,7 @@ import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import { firebase } from '@react-native-firebase/firestore'
 import CardModal from './CardModal'
 import { uid } from 'uid'
+import IconAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 
 
@@ -158,8 +159,12 @@ const Home = ({ user }) => {
 
         <View>
             <ScrollView style={[styles.containerMain]}>
-                <Text style={[styles.textTitle]}>
-                    Menu
+
+
+                <Text style={[styles.textTitle, { marginBottom: "4%" , fontWeight:'bold'}]}>
+                    <IconAwesome5 name="clipboard-list" size={30} color="#148D6F"
+                        style={{ alignSelf: "center" }}
+                    /> Menú
 
                 </Text>
 
@@ -190,13 +195,13 @@ const Home = ({ user }) => {
                                     <Text
                                         style={styles.textBtn}
                                     >
-                                        Agregar a carrito {item.indexDoc}
+                                        Agregar a carrito
                                     </Text>
                                 </TouchableOpacity>
 
                             </View>
 
-                        ):(<></>)}
+                        ) : (<></>)}
 
 
                     </>

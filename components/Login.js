@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NavigationContext } from "@react-navigation/native";
-import { View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, TextInput, Image } from 'react-native'
 import styles from '../styles/styles'
 import InputText from './common/inputs/InputText';
 import { firebase } from '@react-native-firebase/firestore';
@@ -38,11 +38,23 @@ const Login = () => {
     }
 
     return (
+
         <ScrollView
             style={[styles.containerMain,]}
             showsVerticalScrollIndicator={false}
         >
-            <Text style={[styles.textTitle]}>Login</Text>
+
+
+            <View
+                style={[{ alignItems: 'center' }]}
+
+            >
+                <Image
+                    style={{ width: 200, height: 150 }}
+                    source={require('../components/common/img/image.png')}
+                />
+            </View>
+            <Text style={[styles.textTitle]}>Iniciar sesión</Text>
 
             <Text style={[styles.textSubTitle]}>Email</Text>
             <InputText value={email} setValue={setEmail} namePlaceholder={"email"} placeholderTextColor="black" pass={false} />
@@ -70,9 +82,13 @@ const Login = () => {
                 style={styles.textBtn}
                 >Registrer</Text>
             </TouchableOpacity> */}
+            <View
+                style={{ marginBottom: "10%" }}
+            >
+                <TouOpasLarge nameBtn={"Registrar"} nameOnPress={onPressbtn}
 
-            <TouOpasLarge nameBtn={"Registrar"} nameOnPress={onPressbtn} />
-
+                />
+            </View>
         </ScrollView>
 
     )

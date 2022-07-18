@@ -4,7 +4,7 @@ import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import IconAwesome from 'react-native-vector-icons/FontAwesome'
 import IconFontisto from 'react-native-vector-icons/Fontisto'
-import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
+import IconCommunity from 'react-native-vector-icons/FontAwesome5'
 
 
 const CardModal = ({ item,  verSuma}) => {
@@ -40,11 +40,11 @@ const CardModal = ({ item,  verSuma}) => {
 
                     <TouchableOpacity
                         onPress={() => setContSuma(item.cantidadPromo === 0 ? 0 : item.cantidadPromo - 1)}
-                        style={{ width: "50%", height: "100%", justifyContent: 'center', alignItems: 'center', elevation: 1, }}
+                        style={{ width: "50%", height: "70%", justifyContent: 'center', alignItems: 'center', elevation: 3, marginTop:15}}
                     >
                         <IconCommunity
-                            name="numeric-negative-1"
-                            size={35}
+                            name="minus"
+                            size={20}
                             color="#148D6F"
                             style={{ alignSelf: "center" }}
                         />
@@ -52,11 +52,11 @@ const CardModal = ({ item,  verSuma}) => {
 
                     <TouchableOpacity
                         onPress={() => setContSuma(item.cantidadPromo + 1)}
-                        style={{ width: "50%", height: "100%", justifyContent: 'center', alignItems: 'center', elevation: 1, }}
+                        style={{ width: "50%", height: "70%", justifyContent: 'center', alignItems: 'center', elevation: 3, marginTop:15}}
                     >
                         <IconCommunity
-                            name="numeric-positive-1"
-                            size={40}
+                            name="plus"
+                            size={20}
                             color="#148D6F"
                             style={{ alignSelf: "center" }}
                         />
