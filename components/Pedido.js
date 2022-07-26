@@ -74,7 +74,7 @@ const Pedido = (user) => {
                         <>
 
 
-                            {tiempo === 0 ? (
+                            {item.tiempoEntrega === 0 ? (
                                 <>
                                     <Text style={{ textAlign: 'center', fontSize: 20, marginTop: "10%", color: "#34495E" }}>Hemos recibido tu orden...</Text>
                                     <Text style={{ textAlign: 'center', fontSize: 20, color: "#34495E" }}>Estamos calculando el tiempo de entrega</Text>

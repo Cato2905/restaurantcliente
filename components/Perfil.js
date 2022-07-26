@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, Text, View, ToastAndroid } from 'react-native'
 import styles from '../styles/styles'
 import IconAwesome from 'react-native-vector-icons/FontAwesome'
 import IconFontisto from 'react-native-vector-icons/Fontisto'
@@ -37,7 +37,7 @@ const Perfil = ({ user, logOut }) => {
         })
 
 
-
+        ToastAndroid.show("Datos actualizados" ,2000)
 
 
         // console.log(user)

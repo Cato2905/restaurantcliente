@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, Image, View, TouchableOpacity, Modal, addons } from 'react-native'
+import { ScrollView, Text, Image, View, TouchableOpacity, Modal, addons, ToastAndroid} from 'react-native'
 import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import IconAwesome from 'react-native-vector-icons/FontAwesome'
@@ -94,18 +94,18 @@ const Home = ({ user }) => {
             }
             const finalObject = Object.assign(item, contSelect)
             array.push(...arrayCarrito, finalObject)
-
+            ToastAndroid.show('Agregado al carrito', 2000)
             setArrayCarrito(array)
             return;
 
         }
 
         arrayCarrito.forEach(element => {
-
             if (item.indexDoc === element.indexDoc) {
                 salir = true
             }
         });
+
         if (salir === false) {
             const array = []
             const contSelect = {
@@ -116,6 +116,7 @@ const Home = ({ user }) => {
             const finalObject = Object.assign(item, contSelect)
             array.push(...arrayCarrito, finalObject)
             setArrayCarrito(array)
+            ToastAndroid.show('Agregado al carrito', 2000)
 
         }
 
@@ -174,7 +175,7 @@ const Home = ({ user }) => {
                         {item.existencia === true ? (
 
 
-                            <View style={[styles.cardPerfil]} key={index}>
+                            <View style={[styles.cardPerfil,{marginBottom:"10%"}]} key={index}>
                                 <View style={[{ flexDirection: "row", flexWrap: 'wrap' }]}>
                                     <View style={{ width: "50%", }}>
                                         <Image source={{ uri: `${item.imagen}` }}

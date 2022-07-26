@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Alert, ToastAndroid } from 'react-native'
 import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import InputText from './common/inputs/InputText'
@@ -20,12 +20,22 @@ const Register = () => {
 
     const RegisterBtn = () => {
 
+
+        if (name.trim() === "" || apellido.trim() === "" || email.trim() === "" || direccion.trim() === "" || password.trim() === "" ) {
+            Alert.alert(
+                "Debe rellenar todos los campos"
+            )
+            return;
+        }
+
         if (password.trim() !== passwordConfirm.trim()) {
             Alert.alert(
                 "Las contraseñas no coinciden"
             )
             return;
         }
+
+
 
         console.log(name, apellido, email, direccion, password, passwordConfirm)
 
@@ -40,9 +50,11 @@ const Register = () => {
                     direccion
                 }
                 userRef.doc(uid).set(data)
+                
             }
         )
 
+        ToastAndroid.show('Registro existoso', 2000)
 
     }
 
