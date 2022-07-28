@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, Image, View, TouchableOpacity, Modal, addons, ToastAndroid} from 'react-native'
+import { ScrollView, Text, Image, View, TouchableOpacity, Modal, addons, ToastAndroid } from 'react-native'
 import styles from '../styles/styles'
 import TouOpasLarge from './common/buttons/TouOpasLarge'
 import IconAwesome from 'react-native-vector-icons/FontAwesome'
@@ -22,15 +22,20 @@ const Home = ({ user }) => {
     const [existencia, setExistencia] = useState(true)
     const [tiempoEntrega, setTiempoEntrega] = useState(0);
     const [completado, setCompletado] = useState(false)
+    const [ordenes, setOrdenes] = useState([])
 
 
     const onPressConfirmar = () => {
         const event = new Date();
         const date = event.toLocaleTimeString()
+        const date2 = event.toLocaleString()
 
         // console.log(Date())
 
         // console.log(arrayCarrito)
+
+
+        
         firebase.firestore().collection("ordenes").doc(user.id).set({
             id: user.id,
             nombre: user.nombre,
@@ -44,7 +49,8 @@ const Home = ({ user }) => {
         })
 
         firebase.firestore().collection('ventasDiarias').doc().set({
-            TotalPedido: contPrecio
+            TotalPedido: contPrecio,
+            FechaPedido : date2
         })
 
         firebase.firestore().collection("historial").doc().set({
@@ -151,6 +157,25 @@ const Home = ({ user }) => {
     }, [])
 
 
+    useEffect(() => {
+
+        firebase.firestore().collection("ordenes").onSnapshot((docSnapshot) => {
+
+            const dataArray = []
+
+            docSnapshot.docs.map((doc, indexDoc) => {
+
+                dataArray.push({ ...doc.data(), indexDoc })
+
+                // console.log(doc.data().nombre)
+            })
+
+            setOrdenes(dataArray)
+
+        });
+    }, [])
+
+
 
 
 
@@ -162,12 +187,17 @@ const Home = ({ user }) => {
             <ScrollView style={[styles.containerMain]}>
 
 
-                <Text style={[styles.textTitle, { marginBottom: "4%" , fontWeight:'bold'}]}>
+                <Text style={[styles.textTitle, { marginBottom: "4%", fontWeight: 'bold' }]}>
                     <IconAwesome5 name="clipboard-list" size={30} color="#148D6F"
                         style={{ alignSelf: "center" }}
                     /> Menú
 
                 </Text>
+
+
+
+
+
 
                 {promo.map((item, index) => [
 
@@ -175,7 +205,7 @@ const Home = ({ user }) => {
                         {item.existencia === true ? (
 
 
-                            <View style={[styles.cardPerfil,{marginBottom:"10%"}]} key={index}>
+                            <View style={[styles.cardPerfil, { marginBottom: "10%" }]} key={index}>
                                 <View style={[{ flexDirection: "row", flexWrap: 'wrap' }]}>
                                     <View style={{ width: "50%", }}>
                                         <Image source={{ uri: `${item.imagen}` }}
@@ -202,6 +232,7 @@ const Home = ({ user }) => {
 
                             </View>
 
+
                         ) : (<></>)}
 
 
@@ -216,7 +247,23 @@ const Home = ({ user }) => {
 
             </ScrollView>
 
+
+            {ordenes.map((item, index) => [
+                <>
+                    {promo.map((item, index) => [
+                        <>
+
+
+
+
+                        </>
+                    ])}
+                </>
+            ])}
+
             <Modal visible={modalVisible}>
+
+
 
                 <View style={[styles.containerMain, { backgroundColor: "white" }]}>
 
@@ -258,7 +305,11 @@ const Home = ({ user }) => {
                 />
 
             </TouchableOpacity>
+
+
         </View>
+
+
     )
 }
 

@@ -30,7 +30,8 @@ const App = () => {
     firebase.auth().signOut().then(() => {
       setUser(null)
     })
-
+    
+    
   }
 
   useEffect(() => {
